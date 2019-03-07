@@ -1,20 +1,22 @@
 <template>
   <div id="home" class="home">
-    <!-- 导航栏 -->
+    <!-- back top-->
+    <div id="target"></div>
+    <!-- navigation  -->
     <van-nav-bar class="vantHeader">
       <router-link to="" slot="left" id='vantTitle'>漫骆驼 - 二次元正版电商,购有爱！</router-link>
       <van-icon name="search" slot="right" class="search"/>
     </van-nav-bar>
-    <!-- 分类 -->
+    <!-- classification -->
     <van-tabs @click="onClick" sticky animated>
       <van-tab title="首页" class="tabs">
-    <!-- 轮播图 -->
+    <!-- slideshow -->
     <van-swipe :autoplay="3000" :width="400" class="vanswipe">
       <van-swipe-item v-for="(images,index) in list" :key="index">
         <img :src='images.img_url' class="swipeimg"/>
       </van-swipe-item>
     </van-swipe>
-    <!-- 四宫格 -->
+    <!-- Four  -->
     <van-row type="flex" justify="space-around" class="Scratchable">
       <van-col span="6">
         <router-link to="/Newslist">
@@ -45,9 +47,6 @@
       <van-cell v-for="(item,i) in prolist" :key="i">
         <van-card :price="item.price | keepTwoNum" :desc="item.brand" :title="item.title">
           <img :src='item.img_url' alt="" slot="thumb" class="itemimg" />
-<!--           <div slot="footer">
-            <van-button size="mini">查看详情</van-button>
-          </div> -->
         </van-card>
       </van-cell>
     </van-list>
@@ -57,6 +56,8 @@
       </van-tab>
     </van-tabs>
     <van-button size="large" class="lastbut">查看更多 >></van-button>
+     
+   
   </div>
 </template>
 

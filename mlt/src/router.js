@@ -6,6 +6,7 @@ import Cart from './views/Cart.vue'
 import Circle from './views/Circle.vue'
 import Login from './views/Login.vue'
 import Newslist from './views/Newslist.vue'
+
 Vue.use(Router)
 
 

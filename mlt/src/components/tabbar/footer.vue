@@ -22,8 +22,22 @@
 			购物车
 		</van-col>
 	</van-row>
-	<p class="lastp">客服热线 <a @click="callPhone" class="lasta">010-57114765</a></p>
-
+	<p class="lastp">客服热线 <a @click="callPhone" class="lasta">010-57114765</a>
+	</p>
+	<!-- <router-link to="home" class="jump"><img src="../../../public/img/pc_icon.png" alt="">首页</router-link> -->
+	<van-row class="clotwo">
+  	<van-col span="12">
+			<router-link to="/" class="font">
+				<img class="hoimg" src="../../../public/img/pc_icon.png" />
+				首页
+			</router-link>
+		</van-col>
+  	<van-col span="12">
+			<img class="hoimg" id="test" src="../../../public/img/pc_icon2.png" @click="Back()"/>
+			回顶部
+		</van-col>
+	</van-row>
+	<p class="footp ">©2014 漫骆驼 - 二次元正版电商,购有爱！</p>
 </div>
 </template>
 
@@ -38,9 +52,13 @@ export default {
 	methods:{
 	callPhone(){
       window.location.href = 'tel://010-57114765'
-    },
+		},
+	Back(){
+    target.scrollIntoView();
+      }
+		}
 	}
-}
+
 
 </script>
 
@@ -49,7 +67,7 @@ export default {
 #my-footer{
 	top: 10px;
 	bottom: 10px;
-	height: 200px;
+	height: 310px;
 	margin: 0;
 	padding: 0;
 	background-color: #EBECED;
@@ -84,4 +102,23 @@ export default {
 		color: #88898d;
 	}
 }	
+.clotwo{
+	border:none !important;
+	margin-left: 70px;
+	font-size: 20px;
+	color: #88898d;
+	font-weight: bold;
+	.hoimg{
+		margin-top: 10px;
+		position: relative;
+		top: 8px;
+	}
+}
+.font{color: #88898d;	}
+.footp{
+	font-size: 12px;
+	color: #c5c5c5;
+	margin-top: 20px;
+	text-align: center;
+}
 </style>
