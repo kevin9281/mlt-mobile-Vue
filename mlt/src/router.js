@@ -5,7 +5,7 @@ import Cart from './views/Cart.vue'
 import Circle from './views/Circle.vue'
 import Login from './views/Login.vue'
 import Newslist from './views/Newslist.vue'
-import footer from  './components/tabbar/footer.vue'
+/*import footer from  './components/tabbar/footer.vue'*/
 
 Vue.use(Router)
 
@@ -17,7 +17,7 @@ export default new Router({
     { path: '/Cart', component: Cart},
     { path: '/Circle', component: Circle},
     { path: '/Login', component: Login},
-    { path: '/Newslist', component: Newslist},
-    { path: '/footer', component: footer}
+    { path: '/Newslist', component: Newslist}
+    /*{ path: '/footer', component: footer}*/
   ]
 })
