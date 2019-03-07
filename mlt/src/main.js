@@ -23,6 +23,9 @@ axios.defaults.withCredentials=true;
 Vue.prototype.axios=axios;
 
 
+//Header.name 值就是 my-header
+
+
 //创建全局过滤器
 Vue.filter('keepTwoNum',function (value) {
   value = Number(value);

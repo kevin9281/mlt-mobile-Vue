@@ -217,10 +217,11 @@ export default {
   }
 }
 .lastbut{
-margin-bottom:53px;
+margin-bottom:20px;
 font-weight: 700;
 font-size: 10px !important;
 color: #51545a;
 }
+
 </style>
 

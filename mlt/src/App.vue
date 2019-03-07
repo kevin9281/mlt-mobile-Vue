@@ -2,6 +2,7 @@
   <div id="app">
     <router-view/>
     <img src="../public/img/fo.png" alt="" class="suspension">
+    <my-footer />
     <van-tabbar v-model="active" active-color="#ff8600">
       <van-tabbar-item icon="home-o" to='/'>主页</van-tabbar-item>
       <van-tabbar-item icon="search" to='/Circle'>圈子</van-tabbar-item>
@@ -12,7 +13,12 @@
 </template>
 
 <script>
+import myFooter from "./components/tabbar/footer.vue";
 export default {
+  name: "app",
+  components: {
+		myFooter
+	},
   data(){
     return { active:0 }
   },
@@ -24,7 +30,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 
 body{background: #fff !important}
 *{margin:0;padding:0;}
