@@ -6,12 +6,12 @@
       <van-icon name="search" slot="right" class="search"/>
     </van-nav-bar>
     <!-- 分类 -->
-    <van-tabs>
+    <van-tabs @click="onClick" sticky animated>
       <van-tab title="首页" class="tabs">
     <!-- 轮播图 -->
     <van-swipe :autoplay="3000" :width="400" class="vanswipe">
-      <van-swipe-item v-for="(images,index) in images" :key="index">
-        <img :src='images' class="swipeimg"/>
+      <van-swipe-item v-for="(images,index) in list" :key="index">
+        <img :src='images.img_url' class="swipeimg"/>
       </van-swipe-item>
     </van-swipe>
     <!-- 四宫格 -->
@@ -41,13 +41,13 @@
         </router-link>
       </van-col>
     </van-row>
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onload">
-      <van-cell v-for"(e,i) of list" :key="i" @click="todetail(e.pid)">
-        <van-card :price="e.price" :desc="e.brand" :title="e.title" :origin-price="e.oldprice">
-          <img :src="e.goodPic.split(' ')[0]" slot="thumb">
-          <div slot="footer">
+    <van-list v-model="loading" :finished="finished" finished-text="已经拉到底了" @load="onload">
+      <van-cell v-for="(item,i) in prolist" :key="i">
+        <van-card :price="item.price | keepTwoNum" :desc="item.brand" :title="item.title">
+          <img :src='item.img_url' alt="" slot="thumb" class="itemimg" />
+<!--           <div slot="footer">
             <van-button size="mini">查看详情</van-button>
-          </div>
+          </div> -->
         </van-card>
       </van-cell>
     </van-list>
@@ -56,7 +56,7 @@
           什么都没有
       </van-tab>
     </van-tabs>
-
+    <van-button size="large" class="lastbut">查看更多 >></van-button>
   </div>
 </template>
 
@@ -64,33 +64,62 @@
 export default {
   data(){
     return{
-      list:[],
-      size:2,
+      prolist:[],
+      size:5,
       active:0,
       loading: false,
       finished: false,
-      images: [
-        './img/head/big1.jpg',
-        './img/head/big5.jpg',
-        './img/head/big6.jpg',
-        './img/head/big4.jpg',
-      ],
+      list: []
     }
   },
-  created(){
-    this.load()
+  created(){ /* 一般可以在created函数中调用ajax获取页面初始化所需的数据。 */
+    this.load(); /* 页面初始化调用这个方法 */
+    this.getImage();
   },
-  methods:{
+  methods:{   
+  /* 实现点tabs 点哪个就弹框出哪个 */
     onClick(index, title) {
-    this.$toast(title);
+      this.$toast(title);
     },
-    load(){
+    load(){ 
       console.log("加载数据中");
-    },
+  //发送请求get
+      this.axios.get('http://127.0.0.1:3000/product/homelist').then((res)=>{
+        //console.log(res.data.data);
+          this.prolist = res.data.data
+      })
+    }, 
     onload(){
-      
-    }
-  }
+      console.log('加载more数据中`');
+      // 异步更新数据
+      setTimeout(() =>{
+        if(this.prolist.length >= this.size) {
+          this.size += 2;
+          this.axios.get('http://127.0.0.1:3000/product/homelist').then((res)=>{
+              this.prolist = res.data.data;
+            this.loading = false;
+          })
+        }
+        //数据全部加载完成
+        else if (this.prolist.length < this.size) {
+          //数据加载状态结束
+          this.loading = false;
+          this.finished = true;
+          this.toast('没有更多数据了');
+        }
+      },500);
+    },
+    getImage(){
+      this.axios.get('http://127.0.0.1:3000/product/imageList').then(
+        result=>{
+          //console.log(result);
+          this.list = result.data;
+        });
+    },
+
+
+
+  },
 }
 </script>
 
@@ -139,9 +168,59 @@ export default {
     .text{
     color: #333;
     font-size: 13px;
-    margin-left: 11px;
+    margin:0 0 8px 11px;
     }
   }
-
+/* 加载图片 */
+.van-cell{
+  height: 460px;
+  padding: 0 !important;
+  margin-bottom: 12px;
+  .van-card{
+    padding:0px;
+    margin: 0px;
+      .van-card__thumb{
+        margin: 0px;
+        width: 100%;
+        height: 360px;
+        .itemimg{
+          width:375px;
+        }
+      }
+      .van-card__content{
+        top:382px;
+        right: 360px;
+        width: 100%;
+        height: 200px;
+          .van-card__title{
+            width: 258px;
+            color: #51545a;
+            font-size: 1.2em;
+            font-weight: 700;
+          }
+          .van-card__desc{
+            width:220px;
+            color: #87888c;
+            font-size: 1.1em;
+            margin-top:7px;
+          }
+          .van-card__price{
+            width: 100px;
+            top: 0px;
+            left: 265px;
+            position:absolute;
+            color: #f60;
+            font-size: 1.25em;
+            font-weight: 700;
+      }
+    }
+  }
+}
+.lastbut{
+margin-bottom:53px;
+font-weight: 700;
+font-size: 10px !important;
+color: #51545a;
+}
 </style>
 

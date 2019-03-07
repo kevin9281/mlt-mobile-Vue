@@ -22,6 +22,14 @@ Vue.config.productionTip = false;
 axios.defaults.withCredentials=true;
 Vue.prototype.axios=axios;
 
+
+//创建全局过滤器
+Vue.filter('keepTwoNum',function (value) {
+  value = Number(value);
+  return value.toFixed(2)+'元';
+});
+
+
 new Vue({
   router,
   store,
