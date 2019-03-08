@@ -13,13 +13,19 @@
 	</van-row>
 	<van-row type="flex" justify="center" class="rowtwo">
 		<van-col span="6">
+			<router-link to="/" class="jumplink">
 			电脑版
+			</router-link>
 		</van-col>
 		<van-col span="6">
+			<router-link to="Login" class="jumplink">
 			会员登录
+			</router-link>
 		</van-col>
-		<van-col span="6" class="lastcol">
+		<van-col span="6" class="lastcol ">
+			<router-link to="Cart" class="jumplink">
 			购物车
+			</router-link>
 		</van-col>
 	</van-row>
 	<p class="lastp">客服热线 <a @click="callPhone" class="lasta">010-57114765</a>
@@ -38,6 +44,12 @@
 		</van-col>
 	</van-row>
 	<p class="footp ">©2014 漫骆驼 - 二次元正版电商,购有爱！</p>
+	<van-tabbar v-model="active" active-color="#ff8600">
+    <van-tabbar-item icon="home-o" to='/'>主页</van-tabbar-item>
+    <van-tabbar-item icon="search" to='/Circle'>圈子</van-tabbar-item>
+    <van-tabbar-item icon="cart" to='/Cart'>购物车</van-tabbar-item>
+    <van-tabbar-item icon="friends-o">用户中心</van-tabbar-item>
+  </van-tabbar>
 </div>
 </template>
 
@@ -46,7 +58,7 @@ export default {
 	name:'myFooter',
 	data(){
 		return{
-
+			active:0 
 		}
 	},
 	methods:{
@@ -82,14 +94,13 @@ export default {
 	.rowtwo{
 		border: none;
 		margin-top:10px;
-		color: #88898d;
-		font-size: 15px;
 		.van-col--6{
 			width: 20%;
 			border-right: .06667em solid #ccc;
 		}
 		.lastcol{
 			border:none !important;
+			margin-left: 10px;
 		}
 	}
 	.lastp{
@@ -115,10 +126,15 @@ export default {
 	}
 }
 .font{color: #88898d;	}
+.font:active{color: #fff;}
 .footp{
 	font-size: 12px;
 	color: #c5c5c5;
 	margin-top: 20px;
 	text-align: center;
+}
+.jumplink{
+color: #88898d;
+font-size: 15px;
 }
 </style>

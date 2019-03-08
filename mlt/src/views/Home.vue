@@ -43,6 +43,7 @@
         </router-link>
       </van-col>
     </van-row>
+
     <van-list v-model="loading" :finished="finished" finished-text="已经拉到底了" @load="onload">
       <van-cell v-for="(item,i) in prolist" :key="i">
         <van-card :price="item.price | keepTwoNum" :desc="item.brand" :title="item.title">
@@ -50,9 +51,21 @@
         </van-card>
       </van-cell>
     </van-list>
+
     </van-tab>
       <van-tab title="分类" class="tabs">
-          什么都没有
+        <img src="../../public/img/pic1.png" class="pictabs">品牌预售
+        <router-link to="/" class="link">11元专区</router-link>
+        <router-link to="/" class="link">手办专区</router-link>
+        <router-link to="/" class="link">模型专区</router-link>
+        <router-link to="/" class="link">服饰鞋帽</router-link>
+        <router-link to="/" class="link">生活娱乐</router-link>
+        <router-link to="/" class="link">毛绒玩具</router-link>
+        <router-link to="/" class="link">精品挂饰</router-link>
+        <router-link to="/" class="link">卡通箱包</router-link>
+        <router-link to="/" class="link">图书音像</router-link>
+        <router-link to="/" class="link">配件工具</router-link>
+        <router-link to="/" class="link">预售补款</router-link>
       </van-tab>
     </van-tabs>
     <van-button size="large" class="lastbut">查看更多 >></van-button>
@@ -66,16 +79,18 @@ export default {
   data(){
     return{
       prolist:[],
-      size:5,
+      size:2,
       active:0,
       loading: false,
       finished: false,
-      list: []
+      list: [],
+      tabslist:[]
     }
   },
   created(){ /* 一般可以在created函数中调用ajax获取页面初始化所需的数据。 */
     this.load(); /* 页面初始化调用这个方法 */
     this.getImage();
+    this.onLoading();
   },
   methods:{   
   /* 实现点tabs 点哪个就弹框出哪个 */
@@ -117,8 +132,6 @@ export default {
           this.list = result.data;
         });
     },
-
-
 
   },
 }
@@ -223,6 +236,25 @@ font-weight: 700;
 font-size: 10px !important;
 color: #51545a;
 }
+.tabs{
+  background-color: #fff;
+  color: #525252;
+  font-size: 15px;
+  .link{
+    display: block;
+    color: #525252;
+    font-size: 15px;
+    margin-top:30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 40px;
+    padding-left: 25px;
+  }
+  .pictabs{
+    width: 3%;
+    margin:10px 20px 0 140px;
 
+  }
+}
 </style>
 
