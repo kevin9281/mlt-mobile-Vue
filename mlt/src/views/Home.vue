@@ -66,11 +66,20 @@
         <router-link to="/" class="link">图书音像</router-link>
         <router-link to="/" class="link">配件工具</router-link>
         <router-link to="/" class="link">预售补款</router-link>
+        <img src="../../public/img/head/big7.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big8.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big9.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big10.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big7.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big8.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big9.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big10.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big7.jpg" alt="" class="imgsix">
+        <img src="../../public/img/head/big8.jpg" alt="" class="imgsix">
       </van-tab>
     </van-tabs>
     <van-button size="large" class="lastbut">查看更多 >></van-button>
-     
-   
+
   </div>
 </template>
 
@@ -252,9 +261,11 @@ color: #51545a;
   }
   .pictabs{
     width: 3%;
-    margin:10px 20px 0 140px;
-
+    margin:20px 20px 0 140px;
   }
-}
+  .imgsix{
+  width:100%;
+  }
+} 
 </style>
 
