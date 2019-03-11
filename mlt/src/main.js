@@ -5,9 +5,13 @@ import store from './store'
 import axios from 'axios'
 import MintUI from 'mint-ui'
 import Vant from 'vant';
-import {Toast} from 'vant';
+import { Toast } from 'vant';
 import { Lazyload } from 'vant';
 import { Tab, Tabs } from 'vant';
+import { Search } from 'vant';
+import { Icon } from 'vant';
+import { NavBar } from 'vant';
+import { Field } from 'vant';
 
 import 'mint-ui/lib/style.css';
 import 'vant/lib/index.css';
@@ -17,10 +21,15 @@ import './lib/mui/css/mui.css'
 // 还需要加载图标字体文件
 import './lib/mui/css/icons-extra.css'
 
+
 Vue.use(Vant);
 Vue.use(MintUI);
 Vue.use(Lazyload);
 Vue.use(Tab).use(Tabs);
+Vue.use(Search);
+Vue.use(Icon);
+Vue.use(NavBar);
+Vue.use(Field);
 
 Vue.prototype.toast=Toast;
 Vue.config.productionTip = false;

@@ -1,12 +1,11 @@
 <template>
   <div id="home" class="home">
-    <!-- back top-->
-    <div id="target"></div>
     <!-- navigation  -->
-    <van-nav-bar class="vantHeader">
+<!--     <van-nav-bar class="vantHeader">
       <router-link to="" slot="left" id='vantTitle'>漫骆驼 - 二次元正版电商,购有爱！</router-link>
       <van-icon name="search" slot="right" class="search"/>
-    </van-nav-bar>
+    </van-nav-bar> -->
+    <my-header />
     <!-- classification -->
     <van-tabs @click="onClick" sticky animated>
       <van-tab title="首页" class="tabs">
@@ -84,7 +83,13 @@
 </template>
 
 <script>
+import myHeader from "../components/tabbar/header";
+
 export default {
+  name: "home",
+  components: {
+		myHeader
+  },
   data(){
     return{
       prolist:[],
@@ -99,7 +104,7 @@ export default {
   created(){ /* 一般可以在created函数中调用ajax获取页面初始化所需的数据。 */
     this.load(); /* 页面初始化调用这个方法 */
     this.getImage();
-    this.onLoading();
+
   },
   methods:{   
   /* 实现点tabs 点哪个就弹框出哪个 */
@@ -146,7 +151,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" >
 .home{
   background-color: #EBECED;
 }
@@ -196,9 +201,9 @@ export default {
   }
 /* 加载图片 */
 .van-cell{
-  height: 460px;
+  height: 460px ;
   padding: 0 !important;
-  margin-bottom: 12px;
+  margin-bottom: 12px ;
   .van-card{
     padding:0px;
     margin: 0px;
@@ -240,7 +245,7 @@ export default {
   }
 }
 .lastbut{
-margin-bottom:20px;
+margin-bottom:20px !important;
 font-weight: 700;
 font-size: 10px !important;
 color: #51545a;
@@ -267,5 +272,6 @@ color: #51545a;
   width:100%;
   }
 } 
+
 </style>
 

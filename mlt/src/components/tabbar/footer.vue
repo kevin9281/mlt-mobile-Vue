@@ -1,5 +1,5 @@
 <template>
-<div id="my-footer">
+<div id="my-footer" class="my-footer">
 	<van-row>
 		<van-col span="8">
 			<img src="../../../public/img/7.png" alt="" class="footerimg">
@@ -33,10 +33,8 @@
 	<!-- <router-link to="home" class="jump"><img src="../../../public/img/pc_icon.png" alt="">首页</router-link> -->
 	<van-row class="clotwo">
   	<van-col span="12">
-			<router-link to="/" class="font">
-				<img class="hoimg" src="../../../public/img/pc_icon.png" />
+			<img class="hoimg" src="../../../public/img/pc_icon.png" @click="goHome"/>
 				首页
-			</router-link>
 		</van-col>
   	<van-col span="12">
 			<img class="hoimg" id="test" src="../../../public/img/pc_icon2.png" @click="Back()"/>
@@ -46,7 +44,7 @@
 	<p class="footp ">©2014 漫骆驼 - 二次元正版电商,购有爱！</p>
 	<van-tabbar v-model="active" active-color="#ff8600">
     <van-tabbar-item icon="home-o" to='/'>主页</van-tabbar-item>
-    <van-tabbar-item icon="search" to='/Circle'>圈子</van-tabbar-item>
+    <van-tabbar-item icon="search" to='/Circle'>漫社区</van-tabbar-item>
     <van-tabbar-item icon="cart" to='/Cart'>购物车</van-tabbar-item>
     <van-tabbar-item icon="friends-o">用户中心</van-tabbar-item>
   </van-tabbar>
@@ -66,21 +64,26 @@ export default {
       window.location.href = 'tel://010-57114765'
 		},
 	Back(){
-    target.scrollIntoView();
-      }
-		}
+		target.scrollIntoView();
+			},
+	goHome:function () {
+			window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/')
+	  }
 	}
+}
 
 
 </script>
 
 
-<style lang="less">
+<style lang="less" >
 #my-footer{
 	top: 10px;
 	bottom: 10px;
 	height: 310px;
-	margin: 0;
+	margin: 0 !important;
 	padding: 0;
 	background-color: #EBECED;
 	.van-row{

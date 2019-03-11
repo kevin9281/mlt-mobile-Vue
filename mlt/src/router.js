@@ -8,6 +8,7 @@ import Login from './views/Login.vue'
 import Newslist from './views/Newslist.vue'
 
 
+
 Vue.use(Router)
 
 
@@ -17,6 +18,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     { path: '/', component: Home},
+    { path: '/Home', component: Home},
     { path: '/Cart', component: Cart},
     { path: '/Circle', component: Circle},
     { path: '/Login', component: Login},

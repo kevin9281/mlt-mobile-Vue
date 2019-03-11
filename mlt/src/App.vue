@@ -1,25 +1,29 @@
 <template>
   <div id="app">
-    <router-view/>
+    <!-- back top-->
+    <div id="target"></div>
+    <!-- view -->
+    <router-view />
     <img src="../public/img/fo.png" alt="" class="suspension">
+    <!-- footer -->
     <my-footer />
   </div>
 </template>
 
 <script>
 import myFooter from "./components/tabbar/footer.vue";
+
 export default {
-  name: "app",
+
   components: {
 		myFooter
-	},
-  data(){
-    return { }
   },
 
-  methods:{ 
-    
+  data() {
+    return {}
   },
+
+  methods:{ }
 
 }
 </script>
