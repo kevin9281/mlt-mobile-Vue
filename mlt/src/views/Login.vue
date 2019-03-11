@@ -35,9 +35,10 @@ export default {
 
 <style lang="less">
 .wrapper{
-	width: 99.3%;
+	width: 99.4%;
 	height: 700px;
 	background-color: #EBECED;
+	margin: 0 !important;
 	.wrap{
 		height: 350px;
 		.logo{
