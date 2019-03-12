@@ -18,7 +18,7 @@
     <!-- Four  -->
     <van-row type="flex" justify="space-around" class="Scratchable">
       <van-col span="6">
-        <router-link to="/Newslist">
+        <router-link to="/Category">
           <img src="../../public/img/commom/icon_indexn_01.c85c4c7b.png" class="latex">
           <div class="text">品牌预售</div>
         </router-link>

@@ -46,7 +46,7 @@
     <van-tabbar-item icon="home-o" to='/'>主页</van-tabbar-item>
     <van-tabbar-item icon="search" to='/Circle'>漫社区</van-tabbar-item>
     <van-tabbar-item icon="cart" to='/Cart'>购物车</van-tabbar-item>
-    <van-tabbar-item icon="friends-o">用户中心</van-tabbar-item>
+    <van-tabbar-item icon="friends-o" to='/Login'>用户中心</van-tabbar-item>
   </van-tabbar>
 </div>
 </template>

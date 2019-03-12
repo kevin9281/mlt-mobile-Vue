@@ -6,6 +6,8 @@ import Cart from './views/Cart.vue'
 import Circle from './views/Circle.vue'
 import Login from './views/Login.vue'
 import Newslist from './views/Newslist.vue'
+import Registered from './views/Registered.vue'
+import Category from './views/Category.vue'
 
 
 
@@ -22,6 +24,8 @@ export default new Router({
     { path: '/Cart', component: Cart},
     { path: '/Circle', component: Circle},
     { path: '/Login', component: Login},
-    { path: '/Newslist', component: Newslist}
+    { path: '/Newslist', component: Newslist},
+    { path: '/Registered', component: Registered},
+    { path: '/Category', component: Category}
   ]
 })

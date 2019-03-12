@@ -4,30 +4,64 @@
 			<div class="logo"><span class="spantxt">漫骆驼账号登录</span></div>
 			<van-row type="flex" justify="center" class="row">
 				<van-col span="20" class="col-one">
-					<input type="text" class="uname" placeholder="漫骆驼账号">
+					<input type="text" class="uname" name="uname" v-model="uname" placeholder="漫骆驼账号">
 				</van-col>
 			</van-row>
 			<van-row type="flex" justify="center" class="row">
 				<van-col span="20" class="col-two">
-					<input type="text" class="upwd" placeholder="密码">
+					<input type="password" class="upwd" name="upwd" v-model="upwd" placeholder="密码">
 				</van-col>
 			</van-row>
-			<van-button size="large" type="warning" class="btn-one">立即登录</van-button>
+			<van-button size="large" type="warning" class="btn-one" @click="butLogin">立即登录</van-button>
 		</div>
 		<div class="div-bottom">
 			<span class="span-qt">其他方式登录</span>
-			<span class="reg">注册漫骆驼账号</span>
+			<span class="reg" @click="jumpReg()">注册漫骆驼账号</span>
 			<span class="adv">二 次 元 正 版 电 商 , 购 有 爱 ！</span>
 		</div>
 	</div>
 </template>
 
 <script>
+import {Toast} from "mint-ui";
 
 export default {
 	data () {
 		return {
-
+			uname:"",
+			upwd:""
+		}
+	},
+	methods:{
+		butLogin () {//this logining btn
+		//console.log(123);
+		var u = this.uname;
+		var p = this.upwd;
+		//console.log ("用户名:"+u+" 密码:"+p);
+		var reg = /^[a-z0-9]{3,12}$/i;
+		if (!reg.test ( u ) ) {
+			Toast ("用户名格式不正确,请检查!");
+			return;
+			}
+		if (!reg.test ( p ) ) {
+			Toast ("密码格式不正确!");
+			return;
+			}
+//ajax //data脚手架自带属性 code自己设置的服务器属性
+			var url ="http://127.0.0.1:3000";
+					url +="/user/login?uname="+u+"&upwd="+p;
+			this.axios.get(url).then (result=>{
+			//console.log(result.data.code);
+ 				if (result.data.code == 1) {
+					Toast ( "登录成功!" );
+					this.$router.push ("/Home");
+				}else{
+					Toast ("用户名或密码不匹配!")
+				}
+			})			
+		},
+		jumpReg () {
+			this.$router.push ('/Registered')
 		}
 	}
 }
