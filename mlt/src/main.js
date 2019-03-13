@@ -12,6 +12,7 @@ import { Search } from 'vant';
 import { Icon } from 'vant';
 import { NavBar } from 'vant';
 import { Field } from 'vant';
+import { Pagination } from 'vant';
 
 import 'mint-ui/lib/style.css';
 import 'vant/lib/index.css';
@@ -30,6 +31,7 @@ Vue.use(Search);
 Vue.use(Icon);
 Vue.use(NavBar);
 Vue.use(Field);
+Vue.use(Pagination);
 
 Vue.prototype.toast=Toast;
 Vue.config.productionTip = false;
