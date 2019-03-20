@@ -25,6 +25,7 @@
 				v-model="currentPage" 
 				:total-items="20" 
 				:items-per-page="10"
+				@change=''
 			/>
 	</div>
 </template>
@@ -45,14 +46,17 @@ export default {
 			goodItems:[],
 			pno:0,
 			pageSize:10,
-			pageCount:5   /* 总页数 */
+			pageCount:2   /* 总页数 */
 		}
+	},
+	beforeCreate(){
+		
 	},
 	created () { 
 		this.loading();
 	},
 	mounted () {
-	
+
 	},
 	methods:{
 		loading () {
@@ -64,14 +68,9 @@ export default {
 				//console.log(result.data.data);
 				var rous = this.goodItems.concat(result.data.data);
 				this.goodItems = rous;
-				console.log(rous);
+				console.log(this.pno);
 			})	
 		},
-		onloading () {
-			console.log(123);
-			var currentPage = this.currentPage;
-			console.log(currentPage);
-		}
 	}
 }
 </script>
