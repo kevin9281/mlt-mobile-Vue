@@ -8,7 +8,7 @@ import Login from './views/Login.vue'
 import Newslist from './views/Newslist.vue'
 import Registered from './views/Registered.vue'
 import Category from './views/Category.vue'
-
+import User_center from './views/User_center.vue'
 
 
 Vue.use(Router)
@@ -26,6 +26,7 @@ export default new Router({
     { path: '/Login', component: Login},
     { path: '/Newslist', component: Newslist},
     { path: '/Registered', component: Registered},
-    { path: '/Category', component: Category}
+    { path: '/Category', component: Category},
+    { path: '/User_center', component: User_center}
   ]
 })

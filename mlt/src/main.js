@@ -16,6 +16,7 @@ import { Field } from 'vant';
 import { Pagination } from 'vant';
 import { Card } from 'vant';
 import { Stepper } from 'vant';
+import { Swipe, SwipeItem } from 'vant';
 
 import 'mint-ui/lib/style.css';
 import 'vant/lib/index.css';
@@ -37,6 +38,8 @@ Vue.use(Field);
 Vue.use(Pagination);
 Vue.use(Card);
 Vue.use(Stepper);
+Vue.use(Swipe).use(SwipeItem);
+
 
 Vue.prototype.toast=Toast;
 Vue.config.productionTip = false;

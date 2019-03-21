@@ -6,7 +6,7 @@
 		<div class="shuffl">
 			<van-swipe :autoplay="3000" indicator-color="white" class="shuffl-swipe" >
 				<van-swipe-item v-for="item in img" :key="item.id" class="shuffl-item">
-					<img :src="item.img_url" clas='shuffl-img'>
+					<img :src="item.img_url" class='shuffl-img'>
 				</van-swipe-item>
 			</van-swipe>
 		</div>
@@ -14,7 +14,13 @@
 			<p class="title-p"><strong>{{title}}</strong></p>
 		</div>
 		<div class="price">
-
+			<div class="price-div"> 
+				<p class="price-p">本店价<strong class="price-price">11.00</strong><del class="price-del">¥13.20元</del></p>
+				<p class="price-p">品&nbsp;&nbsp;&nbsp;牌<span class="price-span">口袋妖怪</span></p>
+				<p class="price-p price-p-p">库&nbsp;&nbsp;存<span class="price-span-span">暂时缺货</span></p>
+				<van-button type="warning" class="but-t">立即购买</van-button>
+				<van-button type="warning" class="but-t">加入购物车</van-button>
+			</div>
 		</div>
 		<div class="classification" sticky="false" >
 			<van-tabs @click="ononClick" class="class-tabs">
@@ -31,6 +37,13 @@
 		</div>
 		<div class="sliding">
 			<p class="sliding-p">相关推荐</p>
+			<div class="sliding-ing">
+				<van-swipe :autoplay="3000" indicator-color="white" class="sliding-swipe">
+					<van-swipe-item v-for="(item,i) in lbimg" :key="i" class="sliding-item">
+						<img :src="item.lbimg_url" class="sliding-img">
+					</van-swipe-item>
+				</van-swipe>
+			</div>
 		</div>
 	</div>
 </template>
@@ -52,7 +65,12 @@ export default {
 				{uid:3,xqimg_url:require('../../public/img/xq/pkqxq3.jpg')},
 				{uid:4,xqimg_url:require('../../public/img/xq/pkqxq4.jpg')}
 				],
-			lbimg:['../../public/img/xq/xglb1.jpg','../../public/img/xq/xglb2.jpg','../../public/img/xq/xglb3.jpg','../../public/img/xq/xglb4.jpg'],
+			lbimg:[
+				{pid:1,lbimg_url:require('../../public/img/xq/xglb1.jpg')},
+				{pid:1,lbimg_url:require('../../public/img/xq/xglb2.jpg')},
+				{pid:1,lbimg_url:require('../../public/img/xq/xglb3.jpg')},
+				{pid:1,lbimg_url:require('../../public/img/xq/xglb4.jpg')}
+			],
 			current:0
 		}
 	},
@@ -79,10 +97,8 @@ export default {
 .details{
 	width:100%;
 	height:1865px;
-
 	.shuffl{
 		height: 377px;
-
 		.shuffl-swipe{
 			width: 370px;
 			height: 375px;
@@ -109,22 +125,60 @@ export default {
 		}
 	}
 	.price{
+		width: 100%;
 		height: 147px;
-		border: 1px solid red;
+		border-bottom: 1px solid #DCDCDC;
+		.price-div{
+			width: 95%;
+			height: 70px;
+			margin-top: 10px;
+			margin-left: 10px;
+			.price-p{
+				font-size: 14px;
+				color: #979797;
+				font-family: Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Tohoma,Arial;
+				.price-price{
+					color: #ff0500;
+					font-weight: normal;
+					font-size: 22px;
+					margin-left: 15px;
+				}
+				.price-del{
+					margin-left: 20px;
+				}
+				.price-span{
+					font-size: 14px;
+					color: rgb(51, 51, 51);
+					margin-left: 20px;
+				}
+			}
+			.price-p-p{
+				position: relative;
+				left: 245px;
+				width: 115px;
+				bottom: 60px;
+				.price-span-span{
+					margin-left: 5px;
+					font-size: 14px;
+				}
+			}
+			.but-t{
+				margin-left: 10px;
+				bottom: 15px;
+				width: 45%;
+				height: 45px;
+			}
+		}
 	}
 	.classification{
 /* 		height: 100%; */
-		border: 1px solid red; 
 		.class-tabs{
 			height: 100%;
-			border: 1px solid red;
 			.class-tab-one{
 				height: 710px;
-				border: 1px solid red;
 				.calss-tab-one-imgs{
 					width: 100%;
 					height: 235px;
-					
 					.class-tab-one-img{
 						width: 100%;
 						height: 100%;
@@ -158,8 +212,7 @@ export default {
 	.sliding{
 		width: 100%;
 		height: 200px;
-		border: 1px solid red;
-		border-top: 1px solid red;
+		border-top: 1px solid #DCDCDC;
 		position: relative;
 		top: 210px;
 		.sliding-p{
@@ -170,7 +223,22 @@ export default {
 			font-family: Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Tohoma,Arial;
 			color:#000;
 		}
+		.sliding-ing{
+			width: 300px;
+			height: 115px;
+			margin-left: 35px;
+			.sliding-swipe{
+				width: 100%;
+				height: 100%;
+				.sliding-item{
+					.sliding-img{
+						width: 50%;
+						height: 100%;
+						margin-left: 75px;
+					}
+				}
+			}
+		}
 	}
 }
-
 </style>
