@@ -42,13 +42,16 @@
         </router-link>
       </van-col>
     </van-row>
-
     <van-list v-model="loading" :finished="finished" finished-text="已经拉到底了" @load="onload">
-      <van-cell v-for="(item,i) in prolist" :key="i">
-        <van-card :price="item.price | keepTwoNum" :desc="item.brand" :title="item.title">
-          <img :src='item.img_url' alt="" slot="thumb" class="itemimg" />
-        </van-card>
-      </van-cell>
+      
+        <van-cell v-for="(item,i) in prolist" :key="i">
+          <router-link :to="'/Newslist?pid='+item.pid">
+          <van-card :price="item.price | keepTwoNum" :desc="item.brand" :title="item.title">
+            <img :src='item.img_url' alt="" slot="thumb" class="itemimg"/>
+          </van-card>
+          </router-link>
+        </van-cell>
+
     </van-list>
 
     </van-tab>
@@ -104,7 +107,6 @@ export default {
   created(){ /* 一般可以在created函数中调用ajax获取页面初始化所需的数据。 */
     this.load(); /* 页面初始化调用这个方法 */
     this.getImage();
-
   },
   methods:{   
   /* 实现点tabs 点哪个就弹框出哪个 */

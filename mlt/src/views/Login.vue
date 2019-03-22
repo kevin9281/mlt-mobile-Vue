@@ -16,7 +16,7 @@
 		</div>
 		<div class="div-bottom">
 			<span class="span-qt">其他方式登录</span>
-			<span class="reg" @click="jumpReg()">注册漫骆驼账号</span>
+			<span class="reg" @click="jumpReg()">注册漫骆驼账号号</span>
 			<span class="adv">二 次 元 正 版 电 商 , 购 有 爱 ！</span>
 		</div>
 	</div>

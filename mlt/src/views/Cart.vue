@@ -21,7 +21,7 @@
 				<p class="bottomp">本店价<strong class="bottoms">¥ 39.00元</strong></p> 
 				<img class="rightimg" src="../../public/img/laji.png">
 				<p class="number">数&emsp;量</p>
-				<van-stepper v-model="value" class="add"/>
+				<van-stepper v-model="value" class="add" @plus="add" min=1 />
 			</div>
 			<div class="account">
 				<div class="delete"><p class="empty">清空购物车</p></div>
@@ -41,7 +41,14 @@ export default {
 			value:1
 		}
 	},
+	created()	{
+		
+	},
 	methods:{
+		add() {
+
+		},
+
 		goback() {
 			if (window.history.length <= 1) {
 				this.$router.push ({ path: '/'})
