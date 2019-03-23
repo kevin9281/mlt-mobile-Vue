@@ -57,17 +57,17 @@
     </van-tab>
       <van-tab title="分类" class="tabs">
         <img src="../../public/img/pic1.png" class="pictabs">品牌预售
-        <router-link to="/" class="link">11元专区</router-link>
-        <router-link to="/" class="link">手办专区</router-link>
-        <router-link to="/" class="link">模型专区</router-link>
-        <router-link to="/" class="link">服饰鞋帽</router-link>
-        <router-link to="/" class="link">生活娱乐</router-link>
-        <router-link to="/" class="link">毛绒玩具</router-link>
-        <router-link to="/" class="link">精品挂饰</router-link>
-        <router-link to="/" class="link">卡通箱包</router-link>
-        <router-link to="/" class="link">图书音像</router-link>
-        <router-link to="/" class="link">配件工具</router-link>
-        <router-link to="/" class="link">预售补款</router-link>
+        <router-link to="/Category" class="link">11元专区</router-link>
+        <router-link to="/Category" class="link">手办专区</router-link>
+        <router-link to="/Category" class="link">模型专区</router-link>
+        <router-link to="/Category" class="link">服饰鞋帽</router-link>
+        <router-link to="/Category" class="link">生活娱乐</router-link>
+        <router-link to="/Category" class="link">毛绒玩具</router-link>
+        <router-link to="/Category" class="link">精品挂饰</router-link>
+        <router-link to="/Category" class="link">卡通箱包</router-link>
+        <router-link to="/Category" class="link">图书音像</router-link>
+        <router-link to="/Category" class="link">配件工具</router-link>
+        <router-link to="/Category" class="link">预售补款</router-link>
         <img src="../../public/img/head/big7.jpg" alt="" class="imgsix">
         <img src="../../public/img/head/big8.jpg" alt="" class="imgsix">
         <img src="../../public/img/head/big9.jpg" alt="" class="imgsix">

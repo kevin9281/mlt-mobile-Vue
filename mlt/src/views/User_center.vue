@@ -5,7 +5,7 @@
 		</van-nav-bar>
 		<div class="user-name">
 			<div class="user-name-div">
-				<p>用户名：adanew</p>
+				<p>用户名：{{this.$store.state.uname}}</p>
 				<p class="user-name-p">级别:注册用户</p>
 				<p class="user-name-pp">积分：<strong>30积分</strong></p>
 			</div>
@@ -14,7 +14,7 @@
 			<p class="order-p">订单管理</p>
 			<div class="order-div">
 				<div class="order-d">
-					<p class="order-p-p">查看我的购物车</p>
+					<p class="order-p-p" @click="jumpCart">查看我的购物车</p>
 					<van-icon name="arrow" class="order-icon"/>
 				</div>
 				<div class="order-d">
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 
-			<van-button size="large" class="logout">退 出 登 录</van-button>
+			<van-button size="large" class="logout" @click="signout">退 出 登 录</van-button>
 
 	</div>
 </template>
@@ -64,6 +64,19 @@ export default {
 		return { }
 	},
 	methods:{
+		signout(){
+			this.axios.get('http://127.0.0.1:3000/user/signout').then(
+				(res)=>{
+					if(res.data.code == 1 ) {
+						this.$toast('退出成功!');
+						this.$store.commit('signout');
+						this.$router.push('/login')
+					} else {
+						this.$toast("退出登录失败!")
+					}
+				}
+			)
+		},
 		goback() {
 			if (window.history.length <= 1) {
 				this.$router.push ({ path: '/'})
@@ -71,6 +84,9 @@ export default {
 			} else{
 				this.$router.go (-1) 
 			}
+		},
+		jumpCart(){
+			this.$router.push ('/cart')
 		},
 	}
 }

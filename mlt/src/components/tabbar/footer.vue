@@ -46,7 +46,7 @@
     <van-tabbar-item icon="home-o" to='/'>主页</van-tabbar-item>
     <van-tabbar-item icon="search" to='/Circle'>漫社区</van-tabbar-item>
     <van-tabbar-item icon="cart" to='/Cart'>购物车</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" to='/Login'>用户中心</van-tabbar-item>
+    <van-tabbar-item icon="friends-o" @click="jumpuser">用户中心</van-tabbar-item>
   </van-tabbar>
 </div>
 </template>
@@ -70,7 +70,14 @@ export default {
 			window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/')
-	  }
+		},
+		jumpuser(){
+			if(this.$store.state.islogin == true){
+				this.$router.push ('/User_center')
+			}else{
+				this.$router.push ('/login')
+			}
+		}
 	}
 }
 

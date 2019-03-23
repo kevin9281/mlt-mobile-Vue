@@ -56,7 +56,7 @@ export default {
 					this.$store.commit('signin',{uname:this.uname,uid:result.data.uid});	
 					console.log(this.$store.state.uid,this.$store.state.uname);
 					this.$toast('欢迎登陆：'+this.uname);
-					this.$router.push ("/Home");
+					this.$router.push ("/User_center");
 				}else{
 					this.$toast("用户名或密码不匹配!")
 				}

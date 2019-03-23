@@ -25,7 +25,7 @@
 				v-model="currentPage" 
 				:total-items="20" 
 				:items-per-page="10"
-				@change=''
+				
 			/>
 	</div>
 </template>

@@ -3,14 +3,17 @@
 		<van-nav-bar title="购物车" left-arrow @click-left="goback()">
 			<van-icon name="search" slot="right" />
 		</van-nav-bar>
-		<div class="carts" v-show="">
+		<div class='notlog' v-if="!this.$store.state.islogin">
+        还没有登陆，请前往 <router-link to="/login">登陆</router-link> 
+    </div>
+		<div class="carts" v-if="!(this.list.length>0)&&this.$store.state.islogin">
 			<div class="text">
 				<h3>购物车还是空的</h3>
 				<p>现在就去选购吧</p>
 			</div>
-			<van-button size="large">去逛逛</van-button>
+			<van-button size="large" @click="jumpcate">去逛逛</van-button>
 		</div>
-		<div v-show="true" class="cartlist">
+		<div v-if="this.list.length>0" class="cartlist">
 			<div class="continue">
 				<p class="sp">共{{list.length}}件商品</p>
 				<p class="next">继续购物 >></p>
@@ -58,10 +61,9 @@ export default {
 	},
 	created()	{
 		this.loadMore();
-/* 		console.log("state",this.$store.state); */
-		this.load(); 
 	},
 	mouted(){
+		this.load(); 
 	},
 	computed:{
 		total() {
@@ -144,10 +146,10 @@ export default {
 					item.cb = false;
 				}
 				this.list = rows;
-				console.log(this.list);
+				//console.log(this.list);
 			})
 			// 2:发送ajax请求
-		},
+	},
 		goback() {
 			if (window.history.length <= 1) {
 				this.$router.push ({ path: '/'})
@@ -184,12 +186,12 @@ export default {
 			this.axios.get('http://127.0.0.1:3000/user/islogin').then((result)=>{
 				if(result.data.ok == 0 ) {
 					this.$store.commit('signout');
-					console.log(this.$store.state.uid)
+					//console.log(this.$store.state.uid)
 				} else if(result.data.ok == 1) {
 					this.$store.commit('signin',{uname:result.data.uname,uid:result.data.uid});
 					console.log("获取购物车数据用户为:",this.$store.state.uid);
 					this.uid = this.$store.state.uid;
-					console.log(this.uid);
+					//console.log(this.uid);
 				}
 			})
 		}, 
@@ -201,7 +203,7 @@ export default {
 									pid:this.list[i].pid,
 									count:this.list[i].count}
 				}).then((res)=>{
-					console.log(res.data)
+					//console.log(res.data)
 				})
 			}
 		},
@@ -213,11 +215,13 @@ export default {
 									pid:this.list[i].pid,
 									count:this.list[i].count}
 				}).then((res)=>{
-					console.log(res.data)
+					//console.log(res.data)
 				})
 			}
 		},
-		
+		jumpcate(){
+			this.$router.push ('/Category')
+		}
 	}
 }
 </script>
@@ -408,6 +412,12 @@ export default {
 			}
 		}
 	}
+}
+.notlog{
+	position: relative;
+	left: 100px;
+	top: 100px;
+	width: 200px;
 }
 .input-all{
 	position: relative;
