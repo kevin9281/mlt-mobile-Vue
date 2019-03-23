@@ -52,11 +52,13 @@ export default {
 					url +="/user/login?uname="+u+"&upwd="+p;
 			this.axios.get(url).then (result=>{
 			//console.log(result.data.code);
- 				if (result.data.code == 1) {
-					Toast ( "登录成功!" );
+				if (result.data.code == 1) {
+					this.$store.commit('signin',{uname:this.uname,uid:result.data.uid});	
+					console.log(this.$store.state.uid,this.$store.state.uname);
+					this.$toast('欢迎登陆：'+this.uname);
 					this.$router.push ("/Home");
 				}else{
-					Toast ("用户名或密码不匹配!")
+					this.$toast("用户名或密码不匹配!")
 				}
 			})			
 		},

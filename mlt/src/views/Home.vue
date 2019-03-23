@@ -24,19 +24,19 @@
         </router-link>
       </van-col>
       <van-col span="6">
-        <router-link to="/Newslist">
+        <router-link to="/Category">
           <img src="../../public/img/commom/icon_indexn_02.png" class="latex">
           <div class="text">特价闪购</div>
         </router-link>  
       </van-col>
       <van-col span="6">
-        <router-link to="/Newslist">
+        <router-link to="/Category">
           <img src="../../public/img/commom/icon_indexn_04.png" class="latex">
           <div class="text">品牌街</div>
         </router-link>
       </van-col>
       <van-col span="6">
-        <router-link to="/Newslist">
+        <router-link to="/Category">
           <img src="../../public/img/commom/icon_indexn_08.png" class="latex">
           <div class="text">联系我们</div>
         </router-link>

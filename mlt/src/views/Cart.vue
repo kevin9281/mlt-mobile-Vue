@@ -1,5 +1,5 @@
 <template>
-	<div id="cart" style="height:100%">
+	<div id="cart" style="height:1000px">
 		<van-nav-bar title="购物车" left-arrow @click-left="goback()">
 			<van-icon name="search" slot="right" />
 		</van-nav-bar>
@@ -12,21 +12,31 @@
 		</div>
 		<div v-show="true" class="cartlist">
 			<div class="continue">
-				<p class="sp">共1件商品</p>
+				<p class="sp">共{{list.length}}件商品</p>
 				<p class="next">继续购物 >></p>
 			</div>
-			<div class="cartadd">
-				<img class="leftimg" src="../../public/img/good-detail/02-1-big.jpg" alt="">
-				<p class="titlep">GSC 粘土人配件 拉拉队服替换身体 随机发-良笑社 粘土人More 拉拉队服Ver. 不附带头部 正版模玩配件 代理版 现货</p>
-				<p class="bottomp">本店价<strong class="bottoms">¥ 39.00元</strong></p> 
-				<img class="rightimg" src="../../public/img/laji.png">
+
+			<div class="cartadd" v-for="(e,i) in list" :key="i">
+				<input type="checkbox" class="input-all" :checked="e.cb" :data-i="i" @click="modifyItem">
+				<!-- data-i 当前数组的下标 -->
+				<img class="leftimg" :src="e.cartPic" alt="">
+				<p class="titlep">{{e.title}}</p>
+				<p class="bottomp">本店价<strong class="bottoms">¥ {{e.price | keepTwoNum}}</strong></p> 
+				<img class="rightimg" src="../../public/img/laji.png" @click="delItem" :data-id='e.id' :data-idx="i"> <!-- 自定义属性拿到循环这个数组里面的id -->
 				<p class="number">数&emsp;量</p>
-				<van-stepper v-model="value" class="add" @plus="add" min=1 />
+				<!-- <van-stepper class="add" v-model="value" @change="add" min=1 /> -->
+				<van-button size="mini" @click="less(i)">-</van-button>
+        <p class="btn-p">{{e.count}}</p>
+				<van-button size="mini" @click="more(i)">+</van-button>
 			</div>
+
 			<div class="account">
-				<div class="delete"><p class="empty">清空购物车</p></div>
+				<div class="delete">
+					<!-- allcb 全选状态true选中 false清空 -->
+					<input type="checkbox" class="input-all" @click="selectAll" :checked="allcb">
+					<p class="empty" @click="removeItem">删除选中商品</p></div>
 				<div class="final">
-					<p class="ptext">实付金额:   <strong class="str">¥ 39.00元</strong></p>
+					<p class="ptext">实付金额:   <strong class="str">¥ {{total | keepTwoNum}}</strong></p>
 					<van-button size="large" type="warning" class="ljbtn">立即下单</van-button>
 				</div>
 			</div>
@@ -35,20 +45,109 @@
 </template>
 
 <script>
+import {Toast} from "mint-ui";
+
+
 export default {
 	data () {
 		return {
-			value:1
+			list:[],  //保存购物车列表
+			allcb:false, //保存全选复选框状态
+			uid:this.$store.state.uid,
 		}
 	},
 	created()	{
-		
+		this.loadMore();
+/* 		console.log("state",this.$store.state); */
+		this.load(); 
+	},
+	mouted(){
+	},
+	computed:{
+		total() {
+			console.log('计算了一次总价');
+			var sum =0;
+			for (var p of this.list) {
+				sum+=p.price*p.count;
+			}
+			return sum;
+		}
 	},
 	methods:{
 		add() {
 
 		},
-
+		modifyItem(e){ //删除多个商品功能
+			//{删除选中商品}修改
+			//1:获取当前元素下标[其中一种方式]
+			var idx = e.target.dataset.i;
+			//2:将下标对象数组中元素cb修改当前复选状态
+			var checked = e.target.checked;
+			//3:将数组中对应cb状态修改为 true 或者false
+			this.list[idx].cb = checked;
+			//4:统计购物车中商品选中数量 == list.length
+			//5:将全选状态true
+			var count = 0;
+			for(var item of this.list) {
+				if(item.cb) {
+					count++;
+				}
+			}
+			if(count==this.list.length) {
+				this.allcb = true;
+			}else{
+				this.allcb = false;
+			}
+		},
+		selectAll(e){ //全选按钮的点击事件
+        //1:获取当前全选复选框状态
+				var cb = e.target.checked;
+				//2:修改全选状态
+				this.allcb = cb;
+        //2:依据全选状态修改数组中cb值
+        for(var item of this.list){
+          item.cb = cb;
+        }
+      },
+		delItem(e) {  //删除一个商品功能
+			// 1:获取当前购物车id 
+			//e.target触发这个事件的对象的所有自定义属性的id
+			var id = e.target.dataset.id;
+			var idx = e.target.dataset.idx; //下标
+			// console.log(idx);
+			// 2:发送ajax请求
+			var url = "http://127.0.0.1:3000/product/";
+					url+="delCartItem?id="+id;
+			this.axios.get(url).then(result=>{
+				if(result.data.code == 1) {
+			// 3:获取返回结果判断是否成功
+					Toast("删除成功!");
+			// 4:删除list对应购物车商品对象
+			//将数组中对应下标商品删除 splice(下标,个数)从哪个开始删几个
+					this.list.splice(idx,1);
+				}
+			})
+			
+			
+		},
+		loadMore() {	 //发请求取回购物车所有数据
+			// 1:创建变量保存url
+			var url = "http://127.0.0.1:3000/product/";
+					url+="cartlist?uid=1";
+			this.axios.get(url).then(result=>{
+				//console.log(result.data);
+				//创建一个空数组保存
+				var rows = result.data.data;
+				//为列表中每一个对象添加属性cb cb表示复选框状态
+				// true为选中 false为未选中
+				for(var item of rows) {
+					item.cb = false;
+				}
+				this.list = rows;
+				console.log(this.list);
+			})
+			// 2:发送ajax请求
+		},
 		goback() {
 			if (window.history.length <= 1) {
 				this.$router.push ({ path: '/'})
@@ -56,7 +155,69 @@ export default {
 			} else{
 				this.$router.go (-1) 
 			}
-		}
+		},
+		removeItem(){  //勾选状态
+			//0:创建空字符串，为了后续接拼字符串
+			var html = "";
+			//1:遍历数组中元素
+			for(var item of this.list){
+				//2:判断cb==true
+				if(item.cb){
+				//3:保存id：拼字符串
+				html+=item.id+",";
+				}
+			}
+			//console.log(html);
+			//3.1截取字符串 试一下 三 二 一
+			html = html.substring(0,html.length-1);
+			//4:发送ajax请求 删除多个商品
+			var url = "http://127.0.0.1:3000/product/";
+					url+="removeMItem?ids="+html;
+			this.axios.get(url).then(result=>{
+				if(result.data.code == 1){
+					Toast("删除成功!");
+					this.loadMore();
+				}
+			});
+		},
+		load() {
+			this.axios.get('http://127.0.0.1:3000/user/islogin').then((result)=>{
+				if(result.data.ok == 0 ) {
+					this.$store.commit('signout');
+					console.log(this.$store.state.uid)
+				} else if(result.data.ok == 1) {
+					this.$store.commit('signin',{uname:result.data.uname,uid:result.data.uid});
+					console.log("获取购物车数据用户为:",this.$store.state.uid);
+					this.uid = this.$store.state.uid;
+					console.log(this.uid);
+				}
+			})
+		}, 
+		less(i){
+			if(this.list[i].count>1) {
+				this.list[i].count-=1;
+				this.axios.get('http://127.0.0.1:3000/product/updatecart',{
+					params:{uid:this.uid,
+									pid:this.list[i].pid,
+									count:this.list[i].count}
+				}).then((res)=>{
+					console.log(res.data)
+				})
+			}
+		},
+		more(i){
+			if(this.list[i].count < 10) {
+				this.list[i].count += 1;
+				this.axios.get('http://127.0.0.1:3000/product/updatecart',{
+					params:{uid:this.uid,
+									pid:this.list[i].pid,
+									count:this.list[i].count}
+				}).then((res)=>{
+					console.log(res.data)
+				})
+			}
+		},
+		
 	}
 }
 </script>
@@ -177,30 +338,23 @@ export default {
 				font-size: 15px;
 			}
 		}
-		.add{
-			width: 120px;
+		.van-button--mini{
 			position: relative;
-			left: 160px;
 			bottom: 95px;
-			button{
-				border-top: 1px solid #C8C8C8;
-				border-bottom: 1px solid #C8C8C8;
-				border-radius: 0;
-				width: 17px;
-				height: 22px;
-				padding: 0;
-				margin: 0;
-				background: #E6E6E6;
-			}
-			.van-stepper__input{
-				width: 40px;
-				height: 20px; 
-				margin: 0; 
-				padding: 0; 
-				border-radius: 0;
-				line-height: 20px;
-
-			}
+			left: 160px;
+			width: 25px;
+			background-color: #E6E6E6;
+			border: 1px solid #C8C8C8;
+		}
+		.btn-p{
+			position: relative;
+			bottom: 95px;
+			left: 160px;
+			width: 20px;
+			border-top: 1px solid #C8C8C8;
+			border-bottom: 1px solid #C8C8C8;
+			display: inline-block;
+			text-align: center;
 		}
 		.number{
 			position: relative;
@@ -216,11 +370,9 @@ export default {
 		.delete{
 			width: 353px;
 			height: 30px;
-			background: url('../../public/img/laji.png') no-repeat 10px;
-			background-size: 5%;
 			.empty{
-				top: 5px;
-				width: 80px;
+				bottom: 15px;
+				width: 100px;
 				position: relative;
 				left: 33px;
 				margin: 0;
@@ -257,5 +409,9 @@ export default {
 		}
 	}
 }
-
+.input-all{
+	position: relative;
+	left: 15px;
+	top: 6px;
+}
 </style>
