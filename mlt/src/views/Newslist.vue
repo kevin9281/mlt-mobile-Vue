@@ -90,14 +90,16 @@ export default {
 			var url = "http://127.0.0.1:3000/product/";
 					url+="addcart?pid="+pid;
 					url+="&price="+price;
-					url+="&uid="+uid
-			this.axios.get(url).then(result=>{
-				if(result.data.code == 1) {
-					Toast("添加成功!");
-				} else {
-					Toast("添加失败!");
-				}
-			})
+					url+="&uid="+uid;
+			if(this.$store.state.islogin) {
+				this.axios.get(url).then(result=>{
+					if(result.data.code == 1) {
+						Toast("添加成功!");
+					} else {
+						Toast("添加失败!");
+					}
+				})
+			} else { this.$router.push ('/Login') }
 		},
 		goback() {
 			if (window.history.length <= 1) {

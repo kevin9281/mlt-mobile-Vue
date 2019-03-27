@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     signout() {   //退出登录
       this.state.islogin = false;   //操作当前为false表示未登录
-      this,state.uname='';        //操作当前uname为空
+      this.state.uname='';        //操作当前uname为空
       this.state.uid='';           //操作当前uid为空
     }
   }
