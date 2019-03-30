@@ -15,10 +15,13 @@
 		<div class="productlist">
 			<van-row class="cat-row">
 				<van-col span="12" class="cat-col" v-for="(item,i) in goodItems" :key="i">
-					<img :src="item.categoryPic" class="cat-img">
-					<p class="cat-price">¥{{item.price.toFixed(2)}}元</p>
-					<p class="cat-title">{{item.title}}</p>
+					<router-link :to="'/Newslist?pid='+item.pid">
+						<img :src='item.imagePic' class="cat-img">
+						<p class="cat-price">¥{{item.price.toFixed(2)}}元</p>
+						<p class="cat-title">{{item.title}}</p>
+					</router-link>
 				</van-col>
+				
 			</van-row>
 		</div>
 			<van-pagination  class="paging"
