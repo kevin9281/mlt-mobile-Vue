@@ -22,10 +22,10 @@
 			</van-row>
 		</div>
 			<van-pagination  class="paging"
-				v-model="currentPage" 
+				v-model="nowpno" 
 				:total-items="20" 
 				:items-per-page="10"
-				
+				@change="loadPage()"				
 			/>
 	</div>
 </template>
@@ -42,35 +42,41 @@ export default {
 
 	data () {
 		return {
-			currentPage: 1,  /* 当前页码 */
 			goodItems:[],
-			pno:0,
-			pageSize:10,
-			pageCount:2   /* 总页数 */
+			nowpno:1,/* 当前页码 */
+			pageSize:10, //页大小
+			totalPagesList:[]   /* 储存页码 */
 		}
 	},
 	beforeCreate(){
 		
 	},
 	created () { 
-		this.loading();
+		
 	},
 	mounted () {
-
+		//this.loading(1);
+		this.loadPage();
 	},
 	methods:{
-		loading () {
+/* 		loading (pno) {
 	//发送请求get
-			this.pno++;
-			var url = "http://127.0.0.1:3000/product/CategoryPro";
-			url += "?pno="+this.pno+"&pageSize="+this.pageSize;
+		var url = "http://127.0.0.1:3000/product/CategoryPro?pno=1";
+			this.axios.get(url).then(result=>{
+				console.log(result.data.data);
+				this.goodItems = result.data.data;
+				this.totalPages = result.data.pageCount;
+				this.totalPagesList = [];
+			});
+		}, */
+		loadPage(){
+			let newpno = this.nowpno;
+			let url = "http://127.0.0.1:3000/product/CategoryPro?pno="+newpno;
 			this.axios.get(url).then(result=>{
 				//console.log(result.data.data);
-				var rous = this.goodItems.concat(result.data.data);
-				this.goodItems = rous;
-				console.log(this.pno);
-			})	
-		},
+				this.goodItems = result.data.data;
+			})
+		}
 	}
 }
 </script>

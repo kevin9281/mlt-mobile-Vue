@@ -47,7 +47,12 @@ router.beforeEach ( (to,from,next)=>{
   }
 })  
 
-
+/* if (window.sessionStorage.id){
+  next()
+} else {
+  console.log('session为空,请登录先')
+  next('/login')
+} */
 
 export default router
 

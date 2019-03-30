@@ -29,8 +29,13 @@ export default {
 	data () {
 		return {
 			uname:"",
-			upwd:""
+			upwd:""/* ,
+			pid:sessionStorage.getItem('id') */
 		}
+	},
+	created() {
+/* 		var a = sessionStorage.getItem('id')
+		console.log(a); */
 	},
 	methods:{
 		butLogin () {//this logining btn
@@ -53,10 +58,14 @@ export default {
 			this.axios.get(url).then (result=>{
 			//console.log(result.data.code);
 				if (result.data.code == 1) {
-					this.$store.commit('signin',{uname:this.uname,uid:result.data.uid});	
-					console.log(this.$store.state.uid,this.$store.state.uname);
+					var ses = window.sessionStorage;
+					var d = JSON.stringify(result.data.id);
+					ses.setItem('id',d);
+					this.$store.commit('signin',{uname:this.uname,uid:result.data.uid});
+					//console.log(this.$store.state.uid,this.$store.state.uname);
 					this.$toast('欢迎登陆：'+this.uname);
 					this.$router.push ("/User_center");
+					//console.log(result.data.id);
 				}else{
 					this.$toast("用户名或密码不匹配!")
 				}
